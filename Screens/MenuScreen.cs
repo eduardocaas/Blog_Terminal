@@ -9,8 +9,15 @@ public static class MenuScreen
     public static void Load(SqlConnection connection)
     {
         Console.Clear();
-        Console.WriteLine("-------- MENU --------");
-        Console.Write(" >> 1: Users \n >> 2: Posts \n >> 3: Roles \n >> 4: Tags \n >> 5: Categories \n >> ");
+        Console.WriteLine(@"
+              __  __ ______ _   _ _    _ 
+             |  \/  |  ____| \ | | |  | |
+             | \  / | |__  |  \| | |  | |
+             | |\/| |  __| | . ` | |  | |
+             | |  | | |____| |\  | |__| |
+             |_|  |_|______|_| \_|\____/                                                      
+        ");
+        Console.Write(" >> 1: Users \n >> 2: Posts \n >> 3: Roles \n >> 4: Tags \n >> 5: Categories \n >> 6: Exit \n >> ");
         short option = short.Parse(Console.ReadLine());
 
         switch (option)
@@ -20,6 +27,7 @@ public static class MenuScreen
             case 3: Load(connection); break;
             case 4: MenuTagScreen.Load(); break;
             case 5: Load(connection); break;
+            case 6: Console.Clear(); break;
             default: Load(connection); break;
         }
     }

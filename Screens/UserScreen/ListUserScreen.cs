@@ -9,7 +9,15 @@ public static class ListUserScreen
     public static void Load(short opt, SqlConnection connection)
     {
         Console.Clear();
-        Console.WriteLine("-------- USER LIST --------");
+        Console.WriteLine(@"
+              _    _  _____ ______ _____       _      _____  _____ _______ 
+             | |  | |/ ____|  ____|  __ \     | |    |_   _|/ ____|__   __|
+             | |  | | (___ | |__  | |__) |    | |      | | | (___    | |   
+             | |  | |\___ \|  __| |  _  /     | |      | |  \___ \   | |   
+             | |__| |____) | |____| | \ \     | |____ _| |_ ____) |  | |   
+              \____/|_____/|______|_|  \_\    |______|_____|_____/   |_|                                                                                                                            
+        ");
+        
         if (opt == 1)
             Read(connection);
         if (opt == 2)
