@@ -1,4 +1,5 @@
-﻿using Blog.Screens.TagScreen;
+﻿using Blog.Screens.RoleScreen;
+using Blog.Screens.TagScreen;
 using Blog.Screens.UserScreen;
 using Microsoft.Data.SqlClient;
 
@@ -24,7 +25,7 @@ public static class MenuScreen
         {
             case 1: MenuUserScreen.Load(connection); break;
             case 2: Load(connection); break;
-            case 3: Load(connection); break;
+            case 3: MenuRoleScreen.Load(connection); break;
             case 4: MenuTagScreen.Load(); break;
             case 5: Load(connection); break;
             case 6: Console.Clear(); break;
