@@ -30,8 +30,8 @@ public static class ListUserScreen
 
     public static void Read(SqlConnection connection)
     {
-        var repository = new Repository<User>(connection);
-        var items = repository.Get();
+        Repository<User> repository = new Repository<User>(connection);
+        IEnumerable<User> items = repository.Get();
 
         foreach (User item in items)
             Console.WriteLine($"{item.Id} - {item.Name} - {item.Email}");
