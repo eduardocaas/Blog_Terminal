@@ -7,7 +7,14 @@ public static class MenuTagScreen
     public static void Load(SqlConnection connection)
     {
         Console.Clear();
-        Console.WriteLine("-------- MENU TAG --------");
+        Console.WriteLine(@"
+              _______         _____   _____ 
+             |__   __| /\    / ____| / ____|
+                | |   /  \  | |  __ | (___  
+                | |  / /\ \ | | |_ | \___ \ 
+                | | / ____ \| |__| | ____) |
+                |_|/_/    \_\\_____||_____/                      
+        ");
         Console.Write(" >> 1: Show tags \n >> 2: Create tag \n >> 3: Add tag to post" +
                       " \n >> 4: Delete tag \n >> 5: Return \n >> ");
         
