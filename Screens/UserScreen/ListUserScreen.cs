@@ -17,12 +17,19 @@ public static class ListUserScreen
              | |__| | ____) || |____ | | \ \     | |____  _| |_  ____) |   | |   
               \____/ |_____/ |______||_|  \_\    |______||_____||_____/    |_|                                                                                                                                                                            
         ");
-        
+
         if (opt == 1)
+        {
+            Console.WriteLine("| ID |          NAME          |            EMAIL            |");
             Read(connection);
+        }
+
         if (opt == 2)
+        {
+            Console.WriteLine("| ID |          NAME          |            EMAIL            |      ROLE      |");
             ReadWithRoles(connection);
-            
+        }
+
         Console.Write("\n\n >> Press key to return to user menu: ");
         Console.ReadKey();
         MenuUserScreen.Load(connection);
@@ -34,7 +41,10 @@ public static class ListUserScreen
         IEnumerable<User> items = repository.Get();
 
         foreach (User item in items)
-            Console.WriteLine($"{item.Id} - {item.Name} - {item.Email}");
+        {
+            Console.WriteLine("-------------------------------------------------------------");
+            Console.WriteLine($" {item.Id}          {item.Name}              {item.Email}");
+        }
     }
 
     public static void ReadWithRoles(SqlConnection connection)
@@ -44,10 +54,11 @@ public static class ListUserScreen
 
         foreach (User item in items)
         {
-            Console.Write($"{item.Id} - {item.Name} - {item.Email}");
+            Console.WriteLine("------------------------------------------------------------------------------");
+            Console.Write($" {item.Id}          {item.Name}              {item.Email}");
             foreach (Role role in item.Roles)
             {
-                Console.WriteLine($" - {role.Name}");
+                Console.WriteLine($"            {role.Name}");
             }
         }
     }
