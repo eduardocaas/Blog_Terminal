@@ -17,6 +17,8 @@ public static class ListTagScreen
                 | | / ____ \| |__| |    | |____  _| |_  ____) |   | |   
                 |_|/_/    \_\\_____|    |______||_____||_____/    |_|            
         ");
+
+        Console.WriteLine("| ID |      NAME      |");
         Read(connection);
         Console.Write("\n\n >> Press key to return to tag menu: ");
         Console.ReadKey();
@@ -29,6 +31,9 @@ public static class ListTagScreen
         IEnumerable<Tag> items = repository.Get();
 
         foreach (Tag item in items)
-            Console.WriteLine($"{item.Id} - {item.Name}");
+        {
+            Console.WriteLine("-----------------------");
+            Console.WriteLine($"  {item.Id}        {item.Name}");
+        }
     }
 }
