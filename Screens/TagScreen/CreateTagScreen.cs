@@ -1,4 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Blog.Models;
+using Blog.Repositories;
+using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Blog.Screens.TagScreen;
@@ -18,15 +20,30 @@ public static class CreateTagScreen
         ");
         Console.Write("\n >> Name: ");
         string name = Console.ReadLine();
-        if (name.IsNullOrEmpty()) Load(connection);
-        Console.Write("\n >> Slug: ");
+        if (name.IsNullOrEmpty()) Load(connection); // TODO: loop when call this method
+        Console.Write(" >> Slug: ");
         string slug = Console.ReadLine();
+        if (slug.IsNullOrEmpty()) Load(connection);
         
-        Create(connection, name, slug);
+        Create(connection, new Tag { Name = name, Slug = slug } );
     }
 
-    public static void Create(SqlConnection connection, string name, string slug)
+    public static void Create(SqlConnection connection, Tag tag)
     {
-        
+        try
+        {
+            Repository<Tag> repository = new Repository<Tag>(connection);
+            repository.Create(tag);
+            Console.Write("\n|    Tag created with success!   | \n\n >> Press key to return to tag menu: ");
+            Console.ReadKey();
+            MenuTagScreen.Load(connection);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error! {e.Message}");
+            Console.WriteLine(" >> Press key to return to tag creation: ");
+            Console.ReadKey();
+            Load(connection);
+        }
     }
 }
