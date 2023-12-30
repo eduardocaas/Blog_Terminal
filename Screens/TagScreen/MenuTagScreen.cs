@@ -23,7 +23,7 @@ public static class MenuTagScreen
         switch (option)
         {
             case 1: ListTagScreen.Load(connection); break;
-            case 2: Load(connection); break;
+            case 2: CreateTagScreen.Load(connection); break;
             case 3: Load(connection); break;
             case 4: Load(connection); break;
             case 5: MenuScreen.Load(connection); break;
