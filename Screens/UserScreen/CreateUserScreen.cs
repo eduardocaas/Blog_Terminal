@@ -11,16 +11,28 @@ public static class CreateUserScreen
     public static void Load(SqlConnection connection)
     {
         Console.Clear();
-        Console.WriteLine(@"
+        var art = @"
                _____  _____   ______         _______  ______      _    _   _____  ______  _____  
               / ____||  __ \ |  ____|    /\ |__   __||  ____|    | |  | | / ____||  ____||  __ \ 
              | |     | |__) || |__      /  \   | |   | |__       | |  | || (___  | |__   | |__) |
              | |     |  _  / |  __|    / /\ \  | |   |  __|      | |  | | \___ \ |  __|  |  _  / 
              | |____ | | \ \ | |____  / ____ \ | |   | |____     | |__| | ____) || |____ | | \ \ 
               \_____||_|  \_\|______|/_/    \_\|_|   |______|     \____/ |_____/ |______||_|  \_\
-       ");
+       ";
         
-        Console.Write("\n >> Name: ");  //TODO : refatorar codigo: colocar condicao nula apos chamada de todos metodos
+        Console.WriteLine(art);
+
+        ConsoleKey key;
+        do
+        {
+            Console.Clear();
+            Console.WriteLine(art);
+            Console.Write("\n >> Press 'Y' to continue to user creation or 'N' to return no user menu: ");
+            key = Console.ReadKey().Key;
+            if (key == ConsoleKey.N) MenuUserScreen.Load(connection);
+        } while (key != ConsoleKey.Y && key != ConsoleKey.N);
+
+        Console.Write("\n\n >> Name: ");  //TODO : refatorar codigo: colocar condicao nula apos chamada de todos metodos
         string name = Console.ReadLine();
         if (name.IsNullOrEmpty()) Load(connection);
         Console.Write(" >> Email: ");
