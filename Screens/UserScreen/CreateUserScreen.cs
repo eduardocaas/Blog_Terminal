@@ -1,6 +1,8 @@
 ﻿using Blog.Models;
+using Blog.Repositories;
 using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
+using Scrypt;
 
 namespace Blog.Screens.UserScreen;
 
@@ -18,14 +20,14 @@ public static class CreateUserScreen
               \_____||_|  \_\|______|/_/    \_\|_|   |______|     \____/ |_____/ |______||_|  \_\
        ");
         
-        Console.Write("\n >> Name: ");
+        Console.Write("\n >> Name: ");  //TODO : refatorar codigo: colocar condicao nula apos chamada de todos metodos
         string name = Console.ReadLine();
         if (name.IsNullOrEmpty()) Load(connection);
         Console.Write(" >> Email: ");
         string email = Console.ReadLine();
         if (email.IsNullOrEmpty()) Load(connection);
         Console.Write(" >> Password: ");
-        string password = Console.ReadLine(); // TODO: gerar hash
+        string password = Console.ReadLine();
         if (password.IsNullOrEmpty()) Load(connection);
         Console.Write(" >> Bio: ");
         string bio = Console.ReadLine();
@@ -36,21 +38,38 @@ public static class CreateUserScreen
         Console.Write(" >> Slug: ");
         string slug = Console.ReadLine();
         if (slug.IsNullOrEmpty()) Load(connection);
+
+        ScryptEncoder encoder = new ScryptEncoder();
+        string hashedPassword = encoder.Encode(password);
         
         Create(connection, new User
         {
             Name = name,
             Email = email,
-            PasswordHash = password,
+            PasswordHash = hashedPassword,
             Bio = bio,
             Image = image,
             Slug = slug
-        }); // TODO : gerar hash da senha
+        });
 
     }
 
     public static void Create(SqlConnection connection, User user)
     {
-        //TODO
+        try
+        {
+            Repository<User> repository = new Repository<User>(connection);
+            repository.Create(user);
+            Console.Write("\n|    User created with success!   | \n\n >> Press key to return to user menu: ");
+            Console.ReadKey();
+            MenuUserScreen.Load(connection);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error! {e.Message}");
+            Console.WriteLine(" >> Press key to return to user creation: ");
+            Console.ReadKey();
+            Load(connection);
+        }
     }
 }
