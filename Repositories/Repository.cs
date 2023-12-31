@@ -15,7 +15,7 @@ public class Repository<T> where T : class
     public T Get(int id) => _connection.Get<T>(id);
     public void Create(T t) => _connection.Insert<T>(t);
     public void Update(T t) => _connection.Update<T>(t);
-    public void Delete(T t) => _connection.Delete<T>(t);
+    public bool Delete(T t) => _connection.Delete<T>(t);
     public void Delete(int id) => _connection.Delete<T>(_connection.Get<T>(id));
 
 }
