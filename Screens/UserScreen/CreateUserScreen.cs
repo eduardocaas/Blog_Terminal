@@ -27,11 +27,15 @@ public static class CreateUserScreen
         {
             Console.Clear();
             Console.WriteLine(art);
-            Console.Write("\n >> Press 'Y' to continue to user creation or 'N' to return no user menu: ");
+            Console.Write("\n >> Press 'Y' to continue to user creation or 'N' to return to user menu: ");
             key = Console.ReadKey().Key;
             if (key == ConsoleKey.N) MenuUserScreen.Load(connection);
+            if (key == ConsoleKey.Y) Data(connection);
         } while (key != ConsoleKey.Y && key != ConsoleKey.N);
+    }
 
+    public static void Data(SqlConnection connection)
+    {
         Console.Write("\n\n >> Name: ");  //TODO : refatorar codigo: colocar condicao nula apos chamada de todos metodos
         string name = Console.ReadLine();
         if (name.IsNullOrEmpty()) Load(connection);
@@ -63,7 +67,6 @@ public static class CreateUserScreen
             Image = image,
             Slug = slug
         });
-
     }
 
     public static void Create(SqlConnection connection, User user)
