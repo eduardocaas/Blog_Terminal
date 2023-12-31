@@ -21,10 +21,15 @@ public static class DeleteUserScreen
         {
             Console.Write("Press 'I' to delete user by Id or 'N' to delete user by Name or 'R' to return: ");
             key = Console.ReadKey().Key;
-            if (key == ConsoleKey.R) MenuUserScreen.Load(connection); break;
+            if (key == ConsoleKey.R) { MenuUserScreen.Load(connection); break; }
+            if (key == ConsoleKey.I) continue;
+            if (key == ConsoleKey.N) continue;
             
         } while (key != ConsoleKey.I && key != ConsoleKey.N && key != ConsoleKey.R);
-        
+    }
+
+    public static void Delete(SqlConnection connection, short option)
+    {
         
     }
 }
