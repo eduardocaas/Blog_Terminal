@@ -28,9 +28,13 @@ public static class CreateTagScreen
             Console.WriteLine(art);
             Console.Write("\n >> Press 'Y' to continue to tag creation or 'N' to return to tag menu: ");
             key = Console.ReadKey().Key;
-            if (key == ConsoleKey.N) MenuTagScreen.Load(connection);
+            if (key == ConsoleKey.N) { MenuTagScreen.Load(connection); break; }
+            if (key == ConsoleKey.Y) Data(connection);
         } while (key != ConsoleKey.Y && key != ConsoleKey.N);
-        
+    }
+
+    public static void Data(SqlConnection connection)
+    {
         Console.Write("\n\n >> Name: ");
         string name = Console.ReadLine();
         if (name.IsNullOrEmpty()) Load(connection); // TODO: loop when call this method
