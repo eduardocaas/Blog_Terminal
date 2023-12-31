@@ -10,15 +10,28 @@ public static class CreateTagScreen
     public static void Load(SqlConnection connection)
     {
         Console.Clear();
-        Console.WriteLine(@"
+        var art = @"
                _____  _____   ______         _______  ______      _______         _____ 
               / ____||  __ \ |  ____|    /\ |__   __||  ____|    |__   __| /\    / ____|
              | |     | |__) || |__      /  \   | |   | |__          | |   /  \  | |  __ 
              | |     |  _  / |  __|    / /\ \  | |   |  __|         | |  / /\ \ | | |_ |
              | |____ | | \ \ | |____  / ____ \ | |   | |____        | | / ____ \| |__| |
               \_____||_|  \_\|______|/_/    \_\|_|   |______|       |_|/_/    \_\\_____|                                                      
-        ");
-        Console.Write("\n >> Name: ");
+        ";
+        
+        Console.WriteLine(art);
+
+        ConsoleKey key;
+        do
+        {
+            Console.Clear();
+            Console.WriteLine(art);
+            Console.Write("\n >> Press 'Y' to continue to tag creation or 'N' to return to tag menu: ");
+            key = Console.ReadKey().Key;
+            if (key == ConsoleKey.N) MenuTagScreen.Load(connection);
+        } while (key != ConsoleKey.Y && key != ConsoleKey.N);
+        
+        Console.Write("\n\n >> Name: ");
         string name = Console.ReadLine();
         if (name.IsNullOrEmpty()) Load(connection); // TODO: loop when call this method
         Console.Write(" >> Slug: ");
