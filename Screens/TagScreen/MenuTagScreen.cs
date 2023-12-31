@@ -15,8 +15,7 @@ public static class MenuTagScreen
                 | | / ____ \| |__| | ____) |
                 |_|/_/    \_\\_____||_____/                      
         ");
-        Console.Write(" >> 1: Show tags \n >> 2: Create tag \n >> 3: Add tag to post" +
-                      " \n >> 4: Delete tag \n >> 5: Return \n >> ");
+        Console.Write(" >> 1: Show tags \n >> 2: Create tag \n >> 3: Add tag to post \n >> 4: Return \n >> ");
         
         short option = short.Parse(Console.ReadLine());
         
@@ -25,8 +24,7 @@ public static class MenuTagScreen
             case 1: ListTagScreen.Load(connection); break;
             case 2: CreateTagScreen.Load(connection); break;
             case 3: Load(connection); break;
-            case 4: Load(connection); break;
-            case 5: MenuScreen.Load(connection); break;
+            case 4: MenuScreen.Load(connection); break;
             default: Load(connection); break;
         }
     }
