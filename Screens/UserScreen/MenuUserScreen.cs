@@ -27,7 +27,7 @@ public class MenuUserScreen
             case 2: ListUserScreen.Load(2, connection); break;
             case 3: CreateUserScreen.Load(connection); break;
             case 4: Load(connection); break;
-            case 5: Load(connection); break;
+            case 5: DeleteUserScreen.Load(connection); break;
             case 6: MenuScreen.Load(connection); break;
             default: Load(connection); break;
         }
