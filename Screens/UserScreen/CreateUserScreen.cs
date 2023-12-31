@@ -36,37 +36,47 @@ public static class CreateUserScreen
 
     public static void Data(SqlConnection connection)
     {
-        Console.Write("\n\n >> Name: ");  //TODO : refatorar codigo: colocar condicao nula apos chamada de todos metodos
+        
+        Console.Write("\n\n >> Name: ");
         string name = Console.ReadLine();
-        if (name.IsNullOrEmpty()) Load(connection);
+
         Console.Write(" >> Email: ");
         string email = Console.ReadLine();
-        if (email.IsNullOrEmpty()) Load(connection);
+
         Console.Write(" >> Password: ");
         string password = Console.ReadLine();
-        if (password.IsNullOrEmpty()) Load(connection);
+
         Console.Write(" >> Bio: ");
         string bio = Console.ReadLine();
-        if (bio.IsNullOrEmpty()) Load(connection);
+
         Console.Write(" >> Image: ");
         string image = Console.ReadLine();
-        if (image.IsNullOrEmpty()) Load(connection);
+
         Console.Write(" >> Slug: ");
         string slug = Console.ReadLine();
-        if (slug.IsNullOrEmpty()) Load(connection);
-
-        ScryptEncoder encoder = new ScryptEncoder();
-        string hashedPassword = encoder.Encode(password);
         
-        Create(connection, new User
+        if (name.IsNullOrEmpty() || email.IsNullOrEmpty() || password.IsNullOrEmpty() ||
+            bio.IsNullOrEmpty() || image.IsNullOrEmpty() || slug.IsNullOrEmpty())
         {
-            Name = name,
-            Email = email,
-            PasswordHash = hashedPassword,
-            Bio = bio,
-            Image = image,
-            Slug = slug
-        });
+            Console.Write("\n|    Some field was empty or null    | \n\n >> Press key to return to user creation: ");
+            Console.ReadKey();
+            Load(connection);
+        }
+        else
+        {
+            ScryptEncoder encoder = new ScryptEncoder();
+            string hashedPassword = encoder.Encode(password);
+        
+            Create(connection, new User
+            {
+                Name = name,
+                Email = email,
+                PasswordHash = hashedPassword,
+                Bio = bio,
+                Image = image,
+                Slug = slug
+            });
+        }
     }
 
     public static void Create(SqlConnection connection, User user)
