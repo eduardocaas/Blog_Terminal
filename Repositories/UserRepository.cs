@@ -52,4 +52,10 @@ public class UserRepository : Repository<User>
         
         return users;
     }
+
+    public void DeleteByEmail(string email)
+    {
+        var query = "DELETE * FROM [User] WHERE [User].[Email] = @email";
+        _connection.Execute(query, email);
+    }
 }
