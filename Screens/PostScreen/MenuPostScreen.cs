@@ -21,7 +21,22 @@ public class MenuPostScreen
         {
             Console.Clear();
             Console.WriteLine(art);
-            Console.Write(" >> 1: Show post by");
-        } while (expression);
+            Console.Write(" >> 1: Show post by slug \n >> 2: Show posts by author slug \n >> 3: " +
+                          "Create post \n >> 4: Update post \n >> 5: Delete post \n >> 6: Return \n >> ");
+            key = Console.ReadKey().Key;
+
+            switch (key)
+            {
+                case ConsoleKey.D1: Load(connection); break;
+                case ConsoleKey.D2: Load(connection); break;
+                case ConsoleKey.D3: Load(connection); break;
+                case ConsoleKey.D4: Load(connection); break;
+                case ConsoleKey.D5: Load(connection); break;
+                case ConsoleKey.D6: MenuScreen.Load(connection); break;
+                default: continue;
+            }
+            
+        } while (key != ConsoleKey.D1 && key != ConsoleKey.D2 && key != ConsoleKey.D3 && 
+                 key != ConsoleKey.D4 && key != ConsoleKey.D5 && key != ConsoleKey.D6);
     }
 }
