@@ -1,4 +1,5 @@
-﻿using Blog.Screens.RoleScreen;
+﻿using Blog.Screens.PostScreen;
+using Blog.Screens.RoleScreen;
 using Blog.Screens.TagScreen;
 using Blog.Screens.UserScreen;
 using Microsoft.Data.SqlClient;
@@ -30,7 +31,7 @@ public static class MenuScreen
             switch (key)
             {
                 case ConsoleKey.D1: MenuUserScreen.Load(connection); break;
-                case ConsoleKey.D2: Load(connection); break;
+                case ConsoleKey.D2: MenuPostScreen.Load(connection); break;
                 case ConsoleKey.D3: MenuRoleScreen.Load(connection); break;
                 case ConsoleKey.D4: MenuTagScreen.Load(connection); break;
                 case ConsoleKey.D5: Load(connection); break;
