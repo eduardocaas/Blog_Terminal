@@ -103,18 +103,24 @@ CREATE TABLE [PostTag]
 
 
 CREATE PROCEDURE usp_DeleteUser
+(
     @userId INT
+)
 AS
-BEGIN
-    DELETE FROM [User] WHERE [User].[Id] = @userId;
-    DELETE FROM [UserRole] WHERE [UserRole].[UserId] = @userId;
-END;
+    BEGIN TRANSACTION
+DELETE FROM [UserRole] WHERE [UserRole].[UserId] = @userId;
+DELETE FROM [User] WHERE [User].[Id] = @userId;
+    COMMIT
+GO
 
 CREATE PROCEDURE usp_DeleteRole
+(
     @roleId INT
+)
 AS
-BEGIN
-    DELETE FROM [Role] WHERE [Role].[Id] = @roleId;
-    DELETE FROM [UserRole] WHERE [UserRole].[RoleId] = @roleId;
-END;
+    BEGIN TRANSACTION
+DELETE FROM [UserRole] WHERE [UserRole].[RoleId] = @roleId;
+DELETE FROM [Role] WHERE [Role].[Id] = @roleId;
+    COMMIT
+GO
 
