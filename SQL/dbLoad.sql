@@ -100,3 +100,21 @@ CREATE TABLE [PostTag]
 
 	CONSTRAINT [PK_Post_Tag] PRIMARY KEY([PostId], [TagId])
 )
+
+
+CREATE PROCEDURE usp_DeleteUser
+    @userId INT
+AS
+BEGIN
+    DELETE FROM [User] WHERE [User].[Id] = @userId;
+    DELETE FROM [UserRole] WHERE [UserRole].[UserId] = @userId;
+END;
+
+CREATE PROCEDURE usp_DeleteRole
+    @roleId INT
+AS
+BEGIN
+    DELETE FROM [Role] WHERE [Role].[Id] = @roleId;
+    DELETE FROM [UserRole] WHERE [UserRole].[RoleId] = @roleId;
+END;
+
