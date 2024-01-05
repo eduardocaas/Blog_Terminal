@@ -63,7 +63,7 @@ public class UserRepository : Repository<User>
         
         if (id != 0)
         {        
-            string procedure = "[sp_DeleteUser]";
+            string procedure = "[usp_DeleteUser]";
             var pars = new { userId = id };
             rows = _connection.Execute(
                 procedure,
