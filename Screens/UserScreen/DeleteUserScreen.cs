@@ -41,10 +41,15 @@ public static class DeleteUserScreen
                 Console.Write("\n\n >> Id: ");
                 int id = int.Parse(Console.ReadLine());
 
-                User user = repository.Get(id);
-                bool deleted = repository.Delete(user);
+                int row = repository.DeleteWithProcedure(id);
 
-                if (deleted)
+                if (row == 0)
+                {
+                    Console.Write("\n |    Id not found!    | \n\n >> Press key to return to delete user: ");
+                    Console.ReadKey();
+                    Load(connection);
+                }
+                else if (row == 1)
                 {
                     Console.Write("\n |      User deleted with success!      | \n\n >> Press key to return to user menu: ");
                     Console.ReadKey();
@@ -52,9 +57,9 @@ public static class DeleteUserScreen
                 }
                 else
                 {
-                    Console.Write("\n |    Id not found!    | \n\n >> Press key to return to delete user: ");
+                    Console.Write("\n |      User and roles relation deleted with success!      | \n\n >> Press key to return to user menu: ");
                     Console.ReadKey();
-                    Load(connection);
+                    MenuUserScreen.Load(connection);
                 }
             }
 
@@ -62,17 +67,22 @@ public static class DeleteUserScreen
             {
                 Console.Write("\n\n >> Email: ");
                 string email = Console.ReadLine();
-                int row = repository.DeleteByEmail(email);
-
+                int row = repository.DeleteWithProcedure(email);
                 if (row == 0)
                 {
                     Console.Write("\n |    Email not found!    | \n\n >> Press key to return to delete user: ");
                     Console.ReadKey();
                     Load(connection);
                 }
-                else
+                else if (row == 1)
                 {
                     Console.Write("\n |      User deleted with success!      | \n\n >> Press key to return to user menu: ");
+                    Console.ReadKey();
+                    MenuUserScreen.Load(connection);
+                }
+                else
+                {
+                    Console.Write("\n |      User and roles relation deleted with success!      | \n\n >> Press key to return to user menu: ");
                     Console.ReadKey();
                     MenuUserScreen.Load(connection);
                 }
