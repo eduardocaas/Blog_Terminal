@@ -108,8 +108,8 @@ CREATE PROCEDURE usp_DeleteUser
 )
 AS
     BEGIN TRANSACTION
-DELETE FROM [UserRole] WHERE [UserRole].[UserId] = @userId;
-DELETE FROM [User] WHERE [User].[Id] = @userId;
+        DELETE FROM [UserRole] WHERE [UserRole].[UserId] = @userId;
+        DELETE FROM [User] WHERE [User].[Id] = @userId;
     COMMIT
 GO
 
@@ -119,8 +119,8 @@ CREATE PROCEDURE usp_DeleteRole
 )
 AS
     BEGIN TRANSACTION
-DELETE FROM [UserRole] WHERE [UserRole].[RoleId] = @roleId;
-DELETE FROM [Role] WHERE [Role].[Id] = @roleId;
+        DELETE FROM [UserRole] WHERE [UserRole].[RoleId] = @roleId;
+        DELETE FROM [Role] WHERE [Role].[Id] = @roleId;
     COMMIT
 GO
 
