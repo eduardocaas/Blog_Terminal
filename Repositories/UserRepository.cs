@@ -54,11 +54,27 @@ public class UserRepository : Repository<User>
         return users;
     }
 
-    public int DeleteByEmail(string email)
+    public int DeleteWithProcedure(string email)
     {
         string query = "SELECT [Id] FROM [User] WHERE [User].[Email] = @email";
         IEnumerable<dynamic> user = _connection.Query(query, new { email = email });
         dynamic? id = user.FirstOrDefault().Id;
+        int rows = 0;
+        
+        if (id != 0)
+        {        
+            string procedure = "[usp_DeleteUser]";
+            var pars = new { userId = id };
+            rows = _connection.Execute(
+                procedure,
+                pars,
+                commandType: CommandType.StoredProcedure);
+        }
+        return rows;
+    }
+    
+    public int DeleteWithProcedure(int id)
+    {
         int rows = 0;
         
         if (id != 0)
