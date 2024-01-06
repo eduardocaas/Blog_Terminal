@@ -10,19 +10,13 @@ public class UserRoleRepository
     public UserRoleRepository(SqlConnection connection)
         => _connection = connection;
 
-    public int InsertUserRole(string userEmail, int roleId)
-    {
-        return 0;
-    }
-
-    public int InsertUserRole(int userId, int roleId)
-    {
-        return 0;
-    }
-
     public int InsertUserRole(string userEmail, string roleSlug)
     {
         return 0;
     }
 
+    public int InsertUserRole(int userId, string roleSlug)
+    {
+        return 0;
+    }
 }
