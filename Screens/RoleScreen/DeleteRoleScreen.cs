@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Blog.Repositories;
+using Microsoft.Data.SqlClient;
 
 namespace Blog.Screens.RoleScreen;
 
@@ -15,10 +16,40 @@ public class DeleteRoleScreen
              | |__| || |____ | |____ | |____    | |   | |____     | | \ \ | |__| || |____ | |____  
              |_____/ |______||______||______|   |_|   |______|    |_|  \_\ \____/ |______||______|                                                                        
         ";
-        
-        //TODO: CRIAR TRIGGER NO DB PARA DELETAR RELAÇÃO USER - ROLE
-        
+
+        ConsoleKey key;
+
+        do
+        {
+            Console.WriteLine(art);
+            Console.Write("\n >> Press 'I' to delete Role by Id or 'S' to delete Role by Slug or 'R' to return: ");
+            key = Console.ReadKey().Key;
+            if (key == ConsoleKey.R) { MenuRoleScreen.Load(connection); break; }
+            if (key == ConsoleKey.I) Delete(connection, 1);
+            if (key == ConsoleKey.S) Delete(connection, 2);
+
+        } while (key != ConsoleKey.I && key != ConsoleKey.S && key != ConsoleKey.R);
     }
 
-   
+    public static void Delete(SqlConnection connection, short option)
+    {
+        RoleRepository repository = new RoleRepository(connection);
+
+        try
+        {
+            if (option == 1)
+            {
+
+            }
+
+            else if (option == 2)
+            {
+
+            }
+        }
+        catch (Exception e)
+        {
+            
+        }
+    }
 }
