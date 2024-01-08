@@ -40,7 +40,16 @@ public class DeleteRoleScreen
             int row = 0;
             if (option == 1)
             {
+               Console.Write("\n\n >> Id: ");
+               int id = int.Parse(Console.ReadLine());
+               row = repository.DeleteWithProcedure(id);
                
+               if (row == 0)
+               {
+                   Console.Write("\n |    Id not found!    | \n\n >> Press key to return to delete role: ");
+                   Console.ReadKey();
+                   Load(connection);
+               }
             }
 
             else if (option == 2)
@@ -72,7 +81,10 @@ public class DeleteRoleScreen
         }
         catch (Exception e)
         {
-            
+            Console.WriteLine($"Error! {e.Message}");
+            Console.WriteLine(" >> Press key to return to role delete: ");
+            Console.ReadKey();
+            Load(connection);
         }
     }
 }
