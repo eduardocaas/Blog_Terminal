@@ -29,7 +29,7 @@ public static class MenuRoleScreen
                 case ConsoleKey.D1: ListRoleScreen.Load(connection); break;
                 case ConsoleKey.D2: Load(connection); break;
                 case ConsoleKey.D3: Load(connection); break;
-                case ConsoleKey.D4: Load(connection); break;
+                case ConsoleKey.D4: DeleteRoleScreen.Load(connection); break;
                 case ConsoleKey.D5: MenuScreen.Load(connection); break;
                 default: continue;
             }
