@@ -37,14 +37,37 @@ public class DeleteRoleScreen
 
         try
         {
+            int row = 0;
             if (option == 1)
             {
-
+               
             }
 
             else if (option == 2)
             {
+                Console.Write("\n\n >> Slug: ");
+                string slug = Console.ReadLine();
+                row = repository.DeleteWithProcedure(slug);
 
+                if (row == 0)
+                {
+                    Console.Write("\n |    Slug not found!    | \n\n >> Press key to return to delete role: ");
+                    Console.ReadKey();
+                    Load(connection);
+                }
+            }
+
+            if (row == 1)
+            {
+                Console.Write("\n |      Role deleted with success!      | \n\n >> Press key to return to role menu: ");
+                Console.ReadKey();
+                MenuRoleScreen.Load(connection);
+            }
+            else if (row >= 2)
+            {
+                Console.Write("\n |      Role and users relation deleted with success!      | \n\n >> Press key to return to role menu: ");
+                Console.ReadKey();
+                MenuRoleScreen.Load(connection);
             }
         }
         catch (Exception e)
