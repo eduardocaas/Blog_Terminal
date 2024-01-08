@@ -21,7 +21,7 @@ public static class DeleteUserScreen
         ConsoleKey key;
         do
         {
-            Console.Write("Press 'I' to delete user by Id or 'E' to delete user by Email or 'R' to return: ");
+            Console.Write("\n >> Press 'I' to delete user by Id or 'E' to delete user by Email or 'R' to return: ");
             key = Console.ReadKey().Key;
             if (key == ConsoleKey.R) { MenuUserScreen.Load(connection); break; }
             if (key == ConsoleKey.I) Delete(connection, 1);
@@ -36,12 +36,14 @@ public static class DeleteUserScreen
 
         try
         {
+            int row = 0;
+            
             if (option == 1)
             {
                 Console.Write("\n\n >> Id: ");
                 int id = int.Parse(Console.ReadLine());
 
-                int row = repository.DeleteWithProcedure(id);
+                row = repository.DeleteWithProcedure(id);
 
                 if (row == 0)
                 {
@@ -49,43 +51,31 @@ public static class DeleteUserScreen
                     Console.ReadKey();
                     Load(connection);
                 }
-                else if (row == 1)
-                {
-                    Console.Write("\n |      User deleted with success!      | \n\n >> Press key to return to user menu: ");
-                    Console.ReadKey();
-                    MenuUserScreen.Load(connection);
-                }
-                else
-                {
-                    Console.Write("\n |      User and roles relation deleted with success!      | \n\n >> Press key to return to user menu: ");
-                    Console.ReadKey();
-                    MenuUserScreen.Load(connection);
-                }
             }
-
             else if (option == 2)
             {
                 Console.Write("\n\n >> Email: ");
                 string email = Console.ReadLine();
-                int row = repository.DeleteWithProcedure(email);
+                row = repository.DeleteWithProcedure(email);
                 if (row == 0)
                 {
                     Console.Write("\n |    Email not found!    | \n\n >> Press key to return to delete user: ");
                     Console.ReadKey();
                     Load(connection);
                 }
-                else if (row == 1)
-                {
-                    Console.Write("\n |      User deleted with success!      | \n\n >> Press key to return to user menu: ");
-                    Console.ReadKey();
-                    MenuUserScreen.Load(connection);
-                }
-                else
-                {
-                    Console.Write("\n |      User and roles relation deleted with success!      | \n\n >> Press key to return to user menu: ");
-                    Console.ReadKey();
-                    MenuUserScreen.Load(connection);
-                }
+            }
+            
+            if (row == 1)
+            {
+                Console.Write("\n |      User deleted with success!      | \n\n >> Press key to return to user menu: ");
+                Console.ReadKey();
+                MenuUserScreen.Load(connection);
+            }
+            else if (row >= 2)
+            {
+                Console.Write("\n |      User and roles relation deleted with success!      | \n\n >> Press key to return to user menu: ");
+                Console.ReadKey();
+                MenuUserScreen.Load(connection);
             }
 
         }
