@@ -21,6 +21,7 @@ public class DeleteRoleScreen
 
         do
         {
+            Console.Clear();
             Console.WriteLine(art);
             Console.Write("\n >> Press 'I' to delete Role by Id or 'S' to delete Role by Slug or 'R' to return: ");
             key = Console.ReadKey().Key;
