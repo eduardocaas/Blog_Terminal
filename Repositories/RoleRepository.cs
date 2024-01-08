@@ -1,5 +1,7 @@
 ﻿using System.Data;
+using Blog.Models;
 using Dapper;
+using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
 
 namespace Blog.Repositories;
@@ -11,9 +13,26 @@ public class RoleRepository
     public RoleRepository(SqlConnection connection)
         => _connection = connection;
 
+    public int DeleteRoleProcedure(int id)
+    {
+        string procedure = "[usp_DeleteRole]";
+        var pars = new { roleId = id };
+        return _connection.Execute(
+            procedure,
+            pars,
+            commandType: CommandType.StoredProcedure
+        );
+    }
+    
     public int DeleteWithProcedure(int id)
     {
-        return 0;
+        Role role = _connection.Get<Role>(id);
+
+        int rows = 0;
+        if (role.Id != 0)
+            rows = DeleteRoleProcedure(id);
+        
+        return rows;
     }
 
     public int DeleteWithProcedure(string Slug)
@@ -24,15 +43,8 @@ public class RoleRepository
         
         int rows = 0;
         if (id != 0)
-        {
-            string procedure = "[usp_DeleteRole]";
-            var pars = new { roleId = id };
-            rows = _connection.Execute(
-                procedure,
-                pars,
-                commandType: CommandType.StoredProcedure
-            );
-        }
+            rows = DeleteRoleProcedure(id);
+        
         return rows;
     }
 }
