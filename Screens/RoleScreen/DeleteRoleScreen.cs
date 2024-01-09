@@ -1,5 +1,6 @@
 ﻿using Blog.Repositories;
 using Microsoft.Data.SqlClient;
+using Opw.HttpExceptions;
 
 namespace Blog.Screens.RoleScreen;
 
@@ -52,19 +53,11 @@ public class DeleteRoleScreen
                    Load(connection);
                }
             }
-
             else if (option == 2)
             {
                 Console.Write("\n\n >> Slug: ");
                 string slug = Console.ReadLine();
                 row = repository.DeleteWithProcedure(slug);
-
-                if (row == 0)
-                {
-                    Console.Write("\n |    Slug not found!    | \n\n >> Press key to return to delete role: ");
-                    Console.ReadKey();
-                    Load(connection);
-                }
             }
 
             if (row == 1)
@@ -80,9 +73,16 @@ public class DeleteRoleScreen
                 MenuRoleScreen.Load(connection);
             }
         }
+        catch (NotFoundException ex)
+        {
+            Console.WriteLine($"\nError code: {ex.StatusCode.GetHashCode()} - message: {ex.Message}");
+            Console.Write("\n >> Press key to return to role delete: ");
+            Console.ReadKey();
+            Load(connection);
+        }
         catch (Exception e)
         {
-            Console.WriteLine($"Error! {e.Message}");
+            Console.WriteLine($"\nError! {e.Message}");
             Console.WriteLine(" >> Press key to return to role delete: ");
             Console.ReadKey();
             Load(connection);

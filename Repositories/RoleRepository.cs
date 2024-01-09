@@ -3,6 +3,8 @@ using Blog.Models;
 using Dapper;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
+using Opw.HttpExceptions;
 
 namespace Blog.Repositories;
 
@@ -39,6 +41,9 @@ public class RoleRepository
     {
         string query = "SELECT [Id] FROM [Role] WHERE [Role].[Slug] = @slug";
         IEnumerable<dynamic> role = _connection.Query(query, new { slug = Slug });
+        if (role.IsNullOrEmpty())
+            throw new NotFoundException("Slug not found");
+        
         dynamic? id = role.FirstOrDefault().Id;
         
         int rows = 0;
