@@ -2,6 +2,8 @@
 using Blog.Models;
 using Dapper;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
+using Opw.HttpExceptions;
 
 namespace Blog.Repositories;
 
@@ -54,7 +56,7 @@ public class UserRepository : Repository<User>
         return users;
     }
 
-    public int DeleteUserProcedure(int id)
+    private int DeleteUserProcedure(int id)
     {
         string procedure = "[usp_DeleteUser]";
         var pars = new { userId = id };
@@ -68,6 +70,30 @@ public class UserRepository : Repository<User>
     {
         string query = "SELECT [Id] FROM [User] WHERE [User].[Email] = @email";
         IEnumerable<dynamic> user = _connection.Query(query, new { email = email });
+        if (user.IsNullOrEmpty())
+        {
+            throw new NotFoundException("Slug not found!");
+        }
+        
+        dynamic? id = user.FirstOrDefault().Id;
+        int rows = 0;
+        
+        if (id != 0)
+        {
+            rows = DeleteUserProcedure(id);
+        }
+        return rows;
+    }
+    
+    public int DeleteWithProcedure(string slug, bool opt)
+    {
+        string query = "SELECT [Id] FROM [User] WHERE [User].[Slug] = @slug";
+        IEnumerable<dynamic> user = _connection.Query(query, new { slug = slug });
+        if (user.IsNullOrEmpty())
+        {
+            throw new NotFoundException("Slug not found!");
+        }
+        
         dynamic? id = user.FirstOrDefault().Id;
         int rows = 0;
         
@@ -81,7 +107,7 @@ public class UserRepository : Repository<User>
     public int DeleteWithProcedure(int id)
     {
         int rows = 0;
-        
+        //TODO
         if (id != 0)
         {        
             rows = DeleteUserProcedure(id);
