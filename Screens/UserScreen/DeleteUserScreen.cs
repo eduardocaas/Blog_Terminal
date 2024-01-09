@@ -1,6 +1,7 @@
 ﻿using Blog.Models;
 using Blog.Repositories;
 using Microsoft.Data.SqlClient;
+using Opw.HttpExceptions;
 
 namespace Blog.Screens.UserScreen;
 
@@ -41,7 +42,7 @@ public static class DeleteUserScreen
         try
         {
             int row = 0;
-            
+
             if (option == 1)
             {
                 Console.Write("\n\n >> Id: ");
@@ -61,18 +62,14 @@ public static class DeleteUserScreen
                 Console.Write("\n\n >> Email: ");
                 string email = Console.ReadLine();
                 row = repository.DeleteWithProcedure(email);
-                if (row == 0)
-                {
-                    Console.Write("\n |    Email not found!    | \n\n >> Press key to return to delete user: ");
-                    Console.ReadKey();
-                    Load(connection);
-                }
             }
             else if (option == 3)
             {
-                //TODO
-            }    
-            
+                Console.Write("\n\n >> Slug: ");
+                string slug = Console.ReadLine();
+                row = repository.DeleteWithProcedure(slug, true);
+            }
+
             if (row == 1)
             {
                 Console.Write("\n |      User deleted with success!      | \n\n >> Press key to return to user menu: ");
@@ -81,16 +78,24 @@ public static class DeleteUserScreen
             }
             else if (row >= 2)
             {
-                Console.Write("\n |      User and roles relation deleted with success!      | \n\n >> Press key to return to user menu: ");
+                Console.Write(
+                    "\n |      User and roles relation deleted with success!      | \n\n >> Press key to return to user menu: ");
                 Console.ReadKey();
                 MenuUserScreen.Load(connection);
             }
 
         }
+        catch (NotFoundException ex)
+        {
+            Console.WriteLine($"Error code: {ex.StatusCode.GetHashCode()} - message: {ex.Message}");
+            Console.Write("\n >> Press key to return to user delete: ");
+            Console.ReadKey();
+            Load(connection);
+        }
         catch (Exception e)
         {
-            Console.WriteLine($"Error! {e.Message}");
-            Console.WriteLine(" >> Press key to return to user delete: ");
+            Console.WriteLine($"Error code: 500 - message: {e.Message}");
+            Console.Write("\n >> Press key to return to user delete: ");
             Console.ReadKey();
             Load(connection);
         }
