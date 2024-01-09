@@ -26,7 +26,7 @@ public static class ListUserScreen
 
         if (opt == 2)
         {
-            Console.WriteLine("| ID |          NAME          |            EMAIL            |      ROLE      |");
+            Console.Write("| ID |          NAME          |            EMAIL            |      ROLE      |");
             ReadWithRoles(connection);
         }
 
@@ -54,11 +54,11 @@ public static class ListUserScreen
 
         foreach (User item in items)
         {
-            Console.WriteLine("------------------------------------------------------------------------------");
-            Console.Write($" {item.Id}          {item.Name}              {item.Email}");
+            Console.Write("\n------------------------------------------------------------------------------");
+            Console.Write($"\n {item.Id}          {item.Name}              {item.Email}");
             foreach (Role role in item.Roles)
             {
-                Console.WriteLine($"            {role.Name}");
+                Console.Write($"            {role.Name}");
             }
         }
     }
