@@ -8,7 +8,7 @@ public static class DeleteUserScreen
 {
     public static void Load(SqlConnection connection)
     {
-        Console.Clear();
+
         var art = @"
               _____   ______  _       ______  _______  ______      _    _   _____  ______  _____  
              |  __ \ |  ____|| |     |  ____||__   __||  ____|    | |  | | / ____||  ____||  __ \ 
@@ -17,17 +17,21 @@ public static class DeleteUserScreen
              | |__| || |____ | |____ | |____    | |   | |____     | |__| | ____) || |____ | | \ \ 
              |_____/ |______||______||______|   |_|   |______|     \____/ |_____/ |______||_|  \_\
         ";
-        Console.WriteLine(art);
+        
         ConsoleKey key;
         do
         {
-            Console.Write("\n >> Press 'I' to delete user by Id or 'E' to delete user by Email or 'R' to return: ");
+            Console.Clear();
+            Console.WriteLine(art);
+            Console.Write("\n >> Press 'I' to delete user by Id, 'E' to delete user by Email, 'S' to delete user by Slug or 'R' to return: ");
+            // TODO - adicionar opcao slug
             key = Console.ReadKey().Key;
             if (key == ConsoleKey.R) { MenuUserScreen.Load(connection); break; }
             if (key == ConsoleKey.I) Delete(connection, 1);
             if (key == ConsoleKey.E) Delete(connection, 2);
+            if (key == ConsoleKey.S) Delete(connection, 3);
             
-        } while (key != ConsoleKey.I && key != ConsoleKey.E && key != ConsoleKey.R);
+        } while (key != ConsoleKey.I && key != ConsoleKey.E && key != ConsoleKey.S && key != ConsoleKey.R);
     }
 
     public static void Delete(SqlConnection connection, short option)
@@ -64,6 +68,10 @@ public static class DeleteUserScreen
                     Load(connection);
                 }
             }
+            else if (option == 3)
+            {
+                //TODO
+            }    
             
             if (row == 1)
             {
