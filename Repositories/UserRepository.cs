@@ -71,9 +71,7 @@ public class UserRepository : Repository<User>
         string query = "SELECT [Id] FROM [User] WHERE [User].[Email] = @email";
         IEnumerable<dynamic> user = _connection.Query(query, new { email = email });
         if (user.IsNullOrEmpty())
-        {
-            throw new NotFoundException("Slug not found!");
-        }
+            throw new NotFoundException("Email not found!");
         
         dynamic? id = user.FirstOrDefault().Id;
         int rows = 0;
@@ -90,9 +88,7 @@ public class UserRepository : Repository<User>
         string query = "SELECT [Id] FROM [User] WHERE [User].[Slug] = @slug";
         IEnumerable<dynamic> user = _connection.Query(query, new { slug = slug });
         if (user.IsNullOrEmpty())
-        {
             throw new NotFoundException("Slug not found!");
-        }
         
         dynamic? id = user.FirstOrDefault().Id;
         int rows = 0;
@@ -107,7 +103,7 @@ public class UserRepository : Repository<User>
     public int DeleteWithProcedure(int id)
     {
         int rows = 0;
-        //TODO
+        
         if (id != 0)
         {        
             rows = DeleteUserProcedure(id);
