@@ -8,14 +8,22 @@ namespace Blog;
 
 class Program
 {
-    private const string CONNECTION_STRING = @"Server=DESKTOP-34LI74D;
+    private const string CONNECTION_STRING_LOCAL = @"Server=DESKTOP-34LI74D;
                                             Database=Blog;
                                             Trusted_Connection=True;
                                             TrustServerCertificate=True;";
 
+    private const string CONNECTION_STRING_VM = @"Data Source=192.168.0.16,1433;
+                                                Initial Catalog=Blog;
+                                                Trusted_Connection=True;
+                                                TrustServerCertificate=True;
+                                                Integrated Security=False;
+                                                Connect Timeout=30;
+                                                user ID=sa;password=rhelMS_r00t_Password#";
+
     static void Main(string[] args)
     {
-        var connection = new SqlConnection(CONNECTION_STRING);
+        var connection = new SqlConnection(CONNECTION_STRING_VM);
         connection.Open();
         
         MenuScreen.Load(connection);
