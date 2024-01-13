@@ -46,7 +46,7 @@ public class DeleteRoleScreen
                int id = int.Parse(Console.ReadLine());
                row = repository.DeleteWithProcedure(id);
                
-               if (row == 0)
+               if (row == 0) // TODO - Throwing exception in REPOSITORY 
                {
                    Console.Write("\n |    Id not found!    | \n\n >> Press key to return to delete role: ");
                    Console.ReadKey();

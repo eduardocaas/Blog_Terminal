@@ -50,7 +50,7 @@ public static class DeleteUserScreen
 
                 row = repository.DeleteWithProcedure(id);
 
-                if (row == 0)
+                if (row == 0) // TODO - Throwing exception in REPOSITORY 
                 {
                     Console.Write("\n |    Id not found!    | \n\n >> Press key to return to delete user: ");
                     Console.ReadKey();
@@ -87,14 +87,14 @@ public static class DeleteUserScreen
         }
         catch (NotFoundException ex)
         {
-            Console.WriteLine($"Error code: {ex.StatusCode.GetHashCode()} - message: {ex.Message}");
+            Console.WriteLine($"\nError code: {ex.StatusCode.GetHashCode()} - message: {ex.Message}");
             Console.Write("\n >> Press key to return to user delete: ");
             Console.ReadKey();
             Load(connection);
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error code: 500 - message: {e.Message}");
+            Console.WriteLine($"\nError code: 500 - message: {e.Message}");
             Console.Write("\n >> Press key to return to user delete: ");
             Console.ReadKey();
             Load(connection);
