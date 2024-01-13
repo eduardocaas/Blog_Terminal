@@ -17,11 +17,10 @@ public static class RoleUserScreen
 
         ConsoleKey key;
 
-        do
+        do 
         {
             Console.WriteLine(art);
             Console.Write("\n >> For user, press 'E' to use Email or 'I' to use Id, 'R' to return to role menu: ");
-            // TODO - ADICIONAR MAIS OPCOES SEGUINDO O USERROLEREPOSITORY
             key = Console.ReadKey().Key;
             if (key == ConsoleKey.R) MenuRoleScreen.Load(connection);
             if (key == ConsoleKey.E) continue;
@@ -29,6 +28,9 @@ public static class RoleUserScreen
 
         } while (key != ConsoleKey.E && key != ConsoleKey.I && key != ConsoleKey.R);
     }
-    
-    public static void 
+
+    public static void Insert()
+    {
+        
+    }
 }
