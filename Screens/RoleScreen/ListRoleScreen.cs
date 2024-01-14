@@ -29,6 +29,9 @@ public static class ListRoleScreen
         IEnumerable<Role> items = repository.Get();
 
         foreach (Role item in items)
-            Console.WriteLine($"{item.Id} - {item.Name}");
+        {
+            Console.WriteLine("------------------------------------");
+            Console.WriteLine($"  {item.Id}        {item.Name}         {item.Slug}");
+        }
     }
 }
