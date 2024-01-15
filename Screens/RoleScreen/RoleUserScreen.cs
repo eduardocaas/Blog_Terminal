@@ -23,14 +23,21 @@ public static class RoleUserScreen
             Console.Write("\n >> For user, press 'E' to use Email or 'I' to use Id, 'R' to return to role menu: ");
             key = Console.ReadKey().Key;
             if (key == ConsoleKey.R) MenuRoleScreen.Load(connection);
-            if (key == ConsoleKey.E) continue;
-            if (key == ConsoleKey.I) continue;
+            if (key == ConsoleKey.E) Insert(connection, 1);
+            if (key == ConsoleKey.I) Insert(connection, 2);
 
         } while (key != ConsoleKey.E && key != ConsoleKey.I && key != ConsoleKey.R);
     }
 
-    public static void Insert()
+    public static void Insert(SqlConnection connection, short opt)
     {
-        
+        if (opt == 1)
+        {
+            
+        }
+        if (opt == 2)
+        {
+            
+        }
     }
 }
