@@ -12,11 +12,17 @@ public class UserRoleRepository
 
     public int InsertUserRole(string userEmail, string roleSlug)
     {
+        // TODO: Chamar user repository , fazer select id,
+        // TODO: Chamar role repository ,fazer select id
+        // TODO: realizar insert com id's na userrole
         return 0;
     }
 
     public int InsertUserRole(int userId, string roleSlug)
     {
+        // TODO: Chamar user repository , fazer select 1, se retornar, reutilizar ID
+        // TODO: Chamar role repository ,fazer select id
+        // TODO: realizar insert com id's na userrole
         return 0;
     }
 }
