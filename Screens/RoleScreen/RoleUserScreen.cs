@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Blog.Repositories;
+using Microsoft.Data.SqlClient;
 
 namespace Blog.Screens.RoleScreen;
 
@@ -31,9 +32,12 @@ public static class RoleUserScreen
 
     public static void Insert(SqlConnection connection, short opt)
     {
+        UserRepository userRepository = new UserRepository(connection);
+        
         if (opt == 1)
         {
-            
+            Console.Write(">> Email: ");
+            string email = Console.ReadLine();
         }
         if (opt == 2)
         {
