@@ -15,6 +15,18 @@ public class RoleRepository
     public RoleRepository(SqlConnection connection)
         => _connection = connection;
 
+    public IEnumerable<dynamic> GetIdBySlug(string slug)
+    {
+        var query = @"SELECT 
+                        [Id] 
+                      FROM 
+                        [Role] 
+                      WHERE 
+                        [Role].[Slug] = @slug";
+
+        return _connection.Query<dynamic>(query, new { slug = slug });
+    }
+    
     public int DeleteRoleProcedure(int id)
     {
         string procedure = "[usp_DeleteRole]";
