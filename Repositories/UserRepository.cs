@@ -14,6 +14,18 @@ public class UserRepository : Repository<User>
     public UserRepository(SqlConnection connection) : base(connection)
         => _connection = connection;
 
+    public IEnumerable<dynamic> GetIdByEmail(string email)
+    {
+        var query = @"SELECT 
+                        [Id] 
+                      FROM 
+                        [User] 
+                      WHERE 
+                        [User].[Email] = @email";
+
+        return _connection.Query<dynamic>(query, new { email = email });
+    }
+    
     public List<User> GetWithRoles()
     {
         var query = @"
