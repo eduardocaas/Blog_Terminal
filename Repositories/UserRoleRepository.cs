@@ -1,4 +1,5 @@
 ﻿using Blog.Models;
+using Dapper;
 using Microsoft.Data.SqlClient;
 using Opw.HttpExceptions;
 
@@ -23,6 +24,11 @@ public class UserRoleRepository
         var roleId = roleRepository.GetIdBySlug(roleSlug);
         if (roleId == null)
             throw new NotFoundException($"Role with slug: {roleSlug} not found!");
+
+        var query = "INSERT INTO [UserRole] VALUES(@user, @role)";
+        
+        //ver retorno desse execute, por padrao se violar PK no db vai lançar exception a nivel de db, (user try catch)
+        _connection.Execute(query, new { user = userId, role = roleId });
         
         // TODO: Chamar user repository , fazer select id,
         // TODO: Chamar role repository ,fazer select id
