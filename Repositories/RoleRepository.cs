@@ -15,7 +15,7 @@ public class RoleRepository
     public RoleRepository(SqlConnection connection)
         => _connection = connection;
 
-    public IEnumerable<dynamic> GetIdBySlug(string slug)
+    public int GetIdBySlug(string slug)
     {
         var query = @"SELECT 
                         [Id] 
@@ -24,7 +24,7 @@ public class RoleRepository
                       WHERE 
                         [Role].[Slug] = @slug";
 
-        var id = _connection.Query<dynamic>(query, new { slug = slug });
+        var id = _connection.Query<int>(query, new { slug = slug });
         return id.FirstOrDefault();
     }
     
