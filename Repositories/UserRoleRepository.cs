@@ -17,19 +17,19 @@ public class UserRoleRepository
         UserRepository userRepository = new UserRepository(_connection);
         RoleRepository roleRepository = new RoleRepository(_connection);
 
-        var userId = userRepository.GetIdByEmail(userEmail);
-        if (userId == null)
+        int userId = userRepository.GetIdByEmail(userEmail);
+        if (userId == 0)
             throw new NotFoundException($"User with email: {userEmail} not found!");
 
         var roleId = roleRepository.GetIdBySlug(roleSlug);
-        if (roleId == null)
+        if (roleId == 0)
             throw new NotFoundException($"Role with slug: {roleSlug} not found!");
-
-        var query = "INSERT INTO [UserRole] VALUES(@user, @role)";
+        
+        var query = "INSERT INTO [UserRole] VALUES(@userId, @roleId)";
         
         //ver retorno desse execute, por padrao se violar PK no db vai lançar exception a nivel de db, (user try catch)
-        _connection.Execute(query, new { user = userId, role = roleId });
-        
+        int res = _connection.Execute(query, new { userId = userId, roleId = roleId });
+        //retorno do execute se der certo é "1", se não .. da throw exception
         // TODO: Chamar user repository , fazer select id,
         // TODO: Chamar role repository ,fazer select id
         // TODO: realizar insert com id's na userrole
