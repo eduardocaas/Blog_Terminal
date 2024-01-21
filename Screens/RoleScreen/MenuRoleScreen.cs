@@ -27,7 +27,7 @@ public static class MenuRoleScreen
             switch (key)
             {
                 case ConsoleKey.D1: ListRoleScreen.Load(connection); break;
-                case ConsoleKey.D2: Load(connection); break;
+                case ConsoleKey.D2: RoleUserScreen.Load(connection); break;
                 case ConsoleKey.D3: Load(connection); break;
                 case ConsoleKey.D4: DeleteRoleScreen.Load(connection); break;
                 case ConsoleKey.D5: MenuScreen.Load(connection); break;
