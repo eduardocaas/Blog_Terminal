@@ -24,7 +24,8 @@ public class RoleRepository
                       WHERE 
                         [Role].[Slug] = @slug";
 
-        return _connection.Query<dynamic>(query, new { slug = slug });
+        var id = _connection.Query<dynamic>(query, new { slug = slug });
+        return id.FirstOrDefault();
     }
     
     public int DeleteRoleProcedure(int id)
