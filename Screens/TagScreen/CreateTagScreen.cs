@@ -33,7 +33,7 @@ public static class CreateTagScreen
         } while (key != ConsoleKey.Y && key != ConsoleKey.N);
     }
 
-    public static void Data(SqlConnection connection)
+    private static void Data(SqlConnection connection)
     {
         Console.Write("\n\n >> Name: ");
         string name = Console.ReadLine();
@@ -45,7 +45,7 @@ public static class CreateTagScreen
         Create(connection, new Tag { Name = name, Slug = slug } );
     }
 
-    public static void Create(SqlConnection connection, Tag tag)
+    private static void Create(SqlConnection connection, Tag tag)
     {
         try
         {
