@@ -20,6 +20,7 @@ public static class RoleUserScreen
 
         do 
         {
+            Console.Clear();
             Console.WriteLine(art);
             Console.Write("\n >> For user, press 'E' to use Email or 'I' to use Id, 'R' to return to role menu: ");
             key = Console.ReadKey().Key;
@@ -30,14 +31,21 @@ public static class RoleUserScreen
         } while (key != ConsoleKey.E && key != ConsoleKey.I && key != ConsoleKey.R);
     }
 
-    public static void Insert(SqlConnection connection, short opt)
+    private static void Insert(SqlConnection connection, short opt)
     {
-        UserRepository userRepository = new UserRepository(connection);
+
+        UserRoleRepository repository = new UserRoleRepository(connection);
         
         if (opt == 1)
-        {
-            Console.Write(">> Email: ");
-            string email = Console.ReadLine();
+        {// COLOCAR NUM TRY CATCH E PEGAR EXCEPTION E VER SE VEM GENERICA OU CUSTOM
+            
+            Console.Write("\n\n >> User Email: ");
+            string userEmail = Console.ReadLine();
+            Console.Write("\n >> Role Slug: ");
+            string roleSlug = Console.ReadLine();
+            repository.InsertUserRole(userEmail, roleSlug);
+            Console.ReadKey();
+            MenuRoleScreen.Load(connection);
         }
         if (opt == 2)
         {
