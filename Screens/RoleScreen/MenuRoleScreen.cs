@@ -21,16 +21,17 @@ public static class MenuRoleScreen
         {
             Console.Clear();
             Console.WriteLine(art);
-            Console.Write(" >> 1: Show roles \n >> 2: Add role to user \n " + 
-                          ">> 3: Numbers of users per role \n >> 4: Delete role \n >> 5: Return \n >> ");
+            Console.Write(" >> 1: Show roles \n >> 2: Create role \n >> 3: Add role to user \n " + 
+                          ">> 4: Numbers of users per role \n >> 5: Delete role \n >> 6: Return \n >> ");
             key = Console.ReadKey().Key;
             switch (key)
             {
                 case ConsoleKey.D1: ListRoleScreen.Load(connection); break;
-                case ConsoleKey.D2: RoleUserScreen.Load(connection); break;
-                case ConsoleKey.D3: Load(connection); break;
-                case ConsoleKey.D4: DeleteRoleScreen.Load(connection); break;
-                case ConsoleKey.D5: MenuScreen.Load(connection); break;
+                case ConsoleKey.D2: CreateRoleScreen.Load(connection); break;
+                case ConsoleKey.D3: RoleUserScreen.Load(connection); break;
+                case ConsoleKey.D4: Load(connection); break;
+                case ConsoleKey.D5: DeleteRoleScreen.Load(connection); break;
+                case ConsoleKey.D6: MenuScreen.Load(connection); break;
                 default: continue;
             }
 
