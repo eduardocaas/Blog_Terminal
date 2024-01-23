@@ -28,11 +28,18 @@ public class UserRoleRepository
         var query = "INSERT INTO [UserRole] VALUES(@userId, @roleId)";
         
         //ver retorno desse execute, por padrao se violar PK no db vai lançar exception a nivel de db, (user try catch)
-        int res = _connection.Execute(query, new { userId = userId, roleId = roleId });
-        //retorno do execute se der certo é "1", se não .. da throw exception
-        // TODO: Chamar user repository , fazer select id,
-        // TODO: Chamar role repository ,fazer select id
-        // TODO: realizar insert com id's na userrole
+
+        try
+        {
+            int res = _connection.Execute(query, new { userId = userId, roleId = roleId });
+            Console.WriteLine($">>>> {res}");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        
+        
         return 0;
         
         //SE REALIZAR INSERT RETORNAR 1, OU THROW EXCEPTION
