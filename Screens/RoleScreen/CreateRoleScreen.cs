@@ -53,6 +53,9 @@ public class CreateRoleScreen
         {
             Repository<Role> repository = new Repository<Role>(connection);
             repository.Create(role);
+            Console.Write("\n|    Role created with success!   | \n\n >> Press key to return to role menu: ");
+            Console.ReadKey();
+            MenuRoleScreen.Load(connection);
         }
         catch (Exception e)
         {
