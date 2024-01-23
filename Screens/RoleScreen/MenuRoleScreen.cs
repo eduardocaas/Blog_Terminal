@@ -35,7 +35,8 @@ public static class MenuRoleScreen
                 default: continue;
             }
 
-        } while (key != ConsoleKey.D1 && key != ConsoleKey.D2 && key != 
-                 ConsoleKey.D3 && key != ConsoleKey.D4 && key != ConsoleKey.D5);
+        } while (key != ConsoleKey.D1 && key != ConsoleKey.D2 && 
+                 key != ConsoleKey.D3 && key != ConsoleKey.D4 && 
+                 key != ConsoleKey.D5 && key != ConsoleKey.D6);
     }
 }
