@@ -61,7 +61,7 @@ public static class RoleUserScreen
                 }
                 else
                 {
-                    Console.WriteLine("\n <<<< ERROR >>>> \n Message: {e.Message} {e.HResult}");
+                    Console.WriteLine($"\n <<<< ERROR >>>> \n Message: {e.Message} {e.HResult}");
                     Console.WriteLine("\n >> Press key to return to role user menu: ");
                     Console.ReadKey();
                     Load(connection);
