@@ -70,7 +70,7 @@ public static class RoleUserScreen
         }
         if (opt == 2)
         {
-            Console.WriteLine("\n\n >> User Id: ");
+            Console.Write("\n\n >> User Id: ");
             int userId = int.Parse(Console.ReadLine());
             Console.Write(" >> Role Slug: ");
             string roleSlug = Console.ReadLine();
