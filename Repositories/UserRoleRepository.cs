@@ -12,7 +12,7 @@ public class UserRoleRepository
     public UserRoleRepository(SqlConnection connection)
         => _connection = connection;
     
-    public int InsertUserRole(string userEmail, string roleSlug)
+    public void InsertUserRole(string userEmail, string roleSlug)
     {
         UserRepository userRepository = new UserRepository(_connection);
         RoleRepository roleRepository = new RoleRepository(_connection);
@@ -27,24 +27,7 @@ public class UserRoleRepository
         
         var query = "INSERT INTO [UserRole] VALUES(@userId, @roleId)";
         
-        //ver retorno desse execute, por padrao se violar PK no db vai lançar exception a nivel de db, (user try catch)
-
-        try
-        {
-            int res = _connection.Execute(query, new { userId = userId, roleId = roleId });
-            Console.WriteLine($">>>> {res}");
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-        }
-        
-        
-        return 0;
-        
-        //SE REALIZAR INSERT RETORNAR 1, OU THROW EXCEPTION
-        // SE NAO ENCONTRAR EMAIL RETORNAR 2,
-        // SE NAO ENCONTRAR ROLE SLUG RETORNAR 3
+        _connection.Execute(query, new { userId = userId, roleId = roleId });
     }
 
     public int InsertUserRole(int userId, string roleSlug)
