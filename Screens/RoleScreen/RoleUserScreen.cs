@@ -37,15 +37,25 @@ public static class RoleUserScreen
         UserRoleRepository repository = new UserRoleRepository(connection);
         
         if (opt == 1)
-        {// COLOCAR NUM TRY CATCH E PEGAR EXCEPTION E VER SE VEM GENERICA OU CUSTOM
-            
+        {
             Console.Write("\n\n >> User Email: ");
             string userEmail = Console.ReadLine();
             Console.Write("\n >> Role Slug: ");
             string roleSlug = Console.ReadLine();
-            repository.InsertUserRole(userEmail, roleSlug);
-            Console.ReadKey();
-            MenuRoleScreen.Load(connection);
+            try
+            {
+                repository.InsertUserRole(userEmail, roleSlug);
+                Console.Write("\n|    Role add to user with success!    | \n\n >> Press key to return role menu: ");
+                Console.ReadKey();
+                MenuRoleScreen.Load(connection);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error! {e.Message}");
+                Console.WriteLine(" >> Press key to return to role user menu: ");
+                Console.ReadKey();
+                Load(connection);
+            }
         }
         if (opt == 2)
         {
