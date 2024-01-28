@@ -40,8 +40,9 @@ public static class RoleUserScreen
         {
             Console.Write("\n\n >> User Email: ");
             string userEmail = Console.ReadLine();
-            Console.Write("\n >> Role Slug: ");
+            Console.Write(" >> Role Slug: ");
             string roleSlug = Console.ReadLine();
+            
             try
             {
                 repository.InsertUserRole(userEmail, roleSlug);
@@ -51,15 +52,53 @@ public static class RoleUserScreen
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error! {e.Message}");
-                Console.WriteLine(" >> Press key to return to role user menu: ");
-                Console.ReadKey();
-                Load(connection);
+                if (e.HResult == -2146232060)
+                {
+                    Console.WriteLine($"\n <<<< ERROR >>>> \n Message: Register already exists!");
+                    Console.WriteLine("\n >> Press key to return to role user menu: ");
+                    Console.ReadKey();
+                    Load(connection);
+                }
+                else
+                {
+                    Console.WriteLine("\n <<<< ERROR >>>> \n Message: {e.Message} {e.HResult}");
+                    Console.WriteLine("\n >> Press key to return to role user menu: ");
+                    Console.ReadKey();
+                    Load(connection);
+                }
             }
         }
         if (opt == 2)
         {
-            
+            Console.WriteLine("\n\n >> User Id: ");
+            int userId = int.Parse(Console.ReadLine());
+            Console.Write(" >> Role Slug: ");
+            string roleSlug = Console.ReadLine();
+
+            try
+            {
+                repository.InsertUserRole(userId, roleSlug);
+                Console.Write("\n|    Role add to user with success!    | \n\n > Press key to return to role menu: ");
+                Console.ReadKey();
+                MenuRoleScreen.Load(connection);
+            }
+            catch (Exception e)
+            {
+                if (e.HResult == -2146232060)
+                {
+                    Console.WriteLine("\n <<<< ERROR >>>> \n Message: Register already exists!");
+                    Console.WriteLine("\n >> Press key to return to role user menu: ");
+                    Console.ReadKey();
+                    Load(connection);
+                }
+                else
+                {
+                    Console.WriteLine($"\n <<<< ERROR >>>> \n Message: {e.Message}");
+                    Console.WriteLine("\n >> Press key to return to role user menu: ");
+                    Console.ReadKey();
+                    Load(connection);
+                }
+            }
         }
     }
 }
